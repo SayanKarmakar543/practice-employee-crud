@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Form</title>
+    <title>Employee Edit</title>
 </head>
 <body>
     <div>
-        <h1>Employee Form</h1>
-        <form method="post" action="">
+        <form action="{% url 'employee-edit' employee.pk %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Save</button>
+            <button type="submit">Update</button>
             <a href="{% url 'employee-list' %}">Cancel</a>
         </form>
     </div>

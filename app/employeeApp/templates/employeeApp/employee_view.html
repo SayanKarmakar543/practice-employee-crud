@@ -27,8 +27,8 @@
                     <td>{{ emp.age }}</td>
                     <td>{{ emp.salary }}</td>
                     <td>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="{% url 'employee-edit' emp.id %}">Edit</a>
+                        <a href="{% url 'employee-delete' emp.id %}">Delete</a>
                     </td>
                 </tr>
                 {% empty %}

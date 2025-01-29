@@ -1,18 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Delete</title>
+    <title>Delete Employee</title>
+    <style>
+        :root {
+            --primary-color: #ff4d4d; /* Neon red */
+            --primary-hover-color: #ff1a1a;
+            --secondary-color: #00ccff; /* Neon blue */
+            --background-color: #1a1a1a; /* Dark background */
+            --glass-background: rgba(255, 255, 255, 0.1); /* Glass morphism effect */
+            --text-color: #ffffff;
+            --border-radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --neon-glow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        .container {
+            background: var(--glass-background);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .confirmation-message {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            animation: glowText 2s infinite alternate;
+        }
+
+        .button {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            box-shadow: var(--neon-glow);
+        }
+
+        .button:hover {
+            background-color: var(--primary-hover-color);
+            box-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+            color: #00e6e6;
+            text-shadow: 0 0 10px var(--secondary-color), 0 0 20px var(--secondary-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowText {
+            0% {
+                text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d, 0 0 30px #ff4d4d;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #ff4d4d, 0 0 30px #ff4d4d, 0 0 40px #ff4d4d;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div>
-        <P>Do you want to delete this records?</P>
-        <form action="{% url 'employee-delete' employee.pk %}" method="post">
+
+    <div class="container">
+        <p class="confirmation-message">Are you sure you want to delete this record?</p>
+
+        <form action="{% url 'employee-delete' employee.pk %}" method="post" onsubmit="return confirmDelete()">
             {% csrf_token %}
-            <button type="submit">Delete</button>
-            <a href="{% url 'employee-list' %}">Cancel</a>
+            <button type="submit" class="button">Delete</button>
         </form>
+
+        <a href="{% url 'employee-list' %}" class="link">Cancel</a>
     </div>
+
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to permanently delete this record?");
+        }
+    </script>
+
 </body>
+
 </html>
